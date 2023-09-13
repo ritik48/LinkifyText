@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pate It</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+
+    <style>
+      body {
+        height: 100vh;
+        border: 2 solid #ff0000;
+      }
+      .paste-area {
+        height: 70%;
+        border: 1px solid rgb(22, 130, 253);
+      }
+      textarea {
+        height: 100% !important;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('partials/nav') %>
+
+    <form class="form-floating paste-area m-3" action="/" method="POST">
+      <textarea
+        class="form-control"
+        placeholder="Leave a comment here"
+        id="floatingTextarea"
+        name="text"
+      ></textarea>
+      <label for="floatingTextarea">Paste the text here.</label>
+      <button type="submit" class="btn btn-success my-3">Create Link</button>
+    </form>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
