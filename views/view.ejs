@@ -16,32 +16,28 @@
         height: 100vh;
         border: 2 solid #ff0000;
       }
-      .paste-area {
+      .paste-container {
         height: 70%;
+
+        border-radius: 10px;
+
+        color: rgb(67, 67, 67);
+
+        /* border: 1px solid rgb(85, 86, 87); */
       }
       textarea {
         height: 100% !important;
         width: 100%;
-
-        border: 2px solid #2f2f2f7e !important;
-        outline: none !important;
+        border-radius: 10px;
       }
     </style>
   </head>
   <body>
     <%- include('partials/nav') %>
 
-    <form class="form-floating paste-area m-3" action="/" method="POST">
-      <textarea
-        class="form-control"
-        placeholder="Leave a comment here"
-        id="floatingTextarea"
-        name="text"
-        autofocus
-      ></textarea>
-      <label for="floatingTextarea">Paste the text here.</label>
-      <button type="submit" class="btn btn-success my-3">Create Link</button>
-    </form>
+    <div class="paste-container m-3">
+      <textarea class="paste-text p-3" disabled><%= Text.text %></textarea>
+    </div>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"

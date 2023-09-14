@@ -59,6 +59,19 @@ app.post("/", async (req, res) => {
   res.redirect(`/view/${Text.address}`);
 });
 
+app.get('/view/:id', async (req, res) => {
+  const { id } = req.params;
+
+  const Text = await Paste.findOne({ address: id });
+  console.log(Text);
+
+  if(!Text) {
+    console.log("Cannot find paste link");
+    return res.send('Error');
+  }
+  res.render('view', { Text });
+})
+
 // http://localhost:3000/view/d132t6
 
 app.listen(3000, () =>
