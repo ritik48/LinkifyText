@@ -1,48 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Pate It</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
-      crossorigin="anonymous"
-    />
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Pate It</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+            crossorigin="anonymous"
+        />
 
-    <style>
-      body {
-        height: 100vh;
-        border: 2 solid #ff0000;
-      }
-      .paste-container {
-        height: 70%;
+        <style>
+            body {
+                height: 100vh;
+                border: 2 solid #ff0000;
+            }
+            .paste-container {
+                height: 70%;
 
-        border-radius: 10px;
+                border-radius: 5px;
 
-        color: rgb(67, 67, 67);
+                color: rgb(67, 67, 67);
 
-        /* border: 1px solid rgb(85, 86, 87); */
-      }
-      textarea {
-        height: 100% !important;
-        width: 100%;
-        border-radius: 10px;
-      }
-    </style>
-  </head>
-  <body>
-    <%- include('partials/nav') %>
+                background-color: #f1f1f1a4;
 
-    <div class="paste-container m-3">
-      <textarea class="paste-text p-3" disabled><%= Text.text %></textarea>
-    </div>
+                /* border: 1px solid rgb(85, 86, 87); */
+            }
+            textarea {
+                height: 100% !important;
+                width: 100%;
+                border-radius: 5px;
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-      crossorigin="anonymous"
-    ></script>
-  </body>
+                background-color: #f1f1f1a4;
+
+                border-color: #bbbbbba4;
+
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+
+            .side-buttons {
+                border: 1px solid #bbbbbba4;
+                border-right: none;
+                border-color: #bbbbbba4;
+                border-radius: 5px;
+
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+
+                text-align: center;
+            }
+            .side-buttons {
+                font-size: 20px !important;
+            }
+            .edit {
+                color: rgb(9, 221, 72);
+            }
+            .side-btn {
+                cursor: pointer;
+            }
+            a {
+                text-decoration: none;
+            }
+            .heart {
+                color: #e25555;
+            }
+            .author {
+                font-size: 14px;
+            }
+        </style>
+    </head>
+    <body class="d-flex flex-column min-vh-100">
+        <%- include('partials/nav') %>
+
+        <div class="paste-container m-3 d-flex">
+            <div class="side-buttons">
+                <span class="copy side-btn">&#10063;</span>
+                <a href="/edit/<%= Text.address %>" class="edit side-btn"
+                    >&#9998;</a
+                >
+            </div>
+            <textarea class="paste-text p-3" disabled>
+<%= Text.text %></textarea
+            >
+        </div>
+        <div class="expires-in mx-3">
+            Text expires at:
+            <span class="timer"
+                ><%= Text.expiresAt.getUTCHours() %>:<%=
+                Text.expiresAt.getUTCMinutes() %>
+            </span>
+        </div>
+
+        <!-- Footer -->
+        <footer class="bg-dark text-center text-white mt-auto">
+            <!-- Copyright -->
+            <div
+                class="text-center p-2 author"
+                style="background-color: rgba(100, 100, 100, 0.2)"
+            >
+                Made with <span style="color: #e25555">❤</span> by
+                <a class="text-white" href="https://github.cpm/ritik48"
+                    >Ritik</a
+                >
+            </div>
+            <!-- Copyright -->
+        </footer>
+        <!-- Footer -->
+
+        <script>
+            function copyTextToClipboard() {
+                const textarea = document.querySelector("textarea");
+                const status = textarea.disabled;
+
+                if (status) {
+                    textarea.disabled = false;
+                }
+                // Select the text inside the textarea
+                textarea.select();
+
+                try {
+                    // Execute the copy command
+                    document.execCommand("copy");
+                    console.log("Text copied to clipboard");
+                } catch (err) {
+                    console.error("Unable to copy text: ", err);
+                }
+
+                // Deselect the textarea
+                textarea.setSelectionRange(0, 0);
+
+                if (status) {
+                    textarea.disabled = true;
+                }
+            }
+
+            document
+                .querySelector(".copy")
+                .addEventListener("click", copyTextToClipboard);
+        </script>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+            crossorigin="anonymous"
+        ></script>
+    </body>
 </html>
