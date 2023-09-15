@@ -1,5 +1,6 @@
 # Ignore node_modules directory (dependencies)
 /node_modules
+notes.js
 
 # Ignore environment-specific configuration files
 .env
