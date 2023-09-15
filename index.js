@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const methodOverride = require("method-override");
 
 const Paste = require("./models/paste");
 
@@ -16,6 +17,7 @@ mongoose
 
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 
 PORT = 3000;
 
@@ -49,6 +51,35 @@ app.get("/view/:id", async (req, res) => {
     }
 
     return res.send("Expired");
+});
+
+app.get("/edit/:id", async (req, res) => {
+    const { id } = req.params;
+
+    const Text = await Paste.findOne({ address: id });
+
+    if (!Text) {
+        console.log("Cannot find paste link");
+        return res.send("Error Editing");
+    }
+
+    const isAlive = await Text.alive();
+    if (isAlive) {
+        return res.render("edit", { Text });
+    }
+
+    return res.send("Expired");
+});
+
+app.patch("/edit/:id", async (req, res) => {
+    const { id } = req.params;
+
+    const { text } = req.body;
+
+    const Text = await Paste.findOneAndUpdate({ address: id }, { text });
+    console.log(Text);
+
+    res.redirect(`/view/${id}`);
 });
 
 app.listen(3000, () =>
