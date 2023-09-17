@@ -4,32 +4,62 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Pate It</title>
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
-            crossorigin="anonymous"
-        />
+        <link rel="stylesheet" href="/stylesheets/nav.css" />
 
         <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            html,
             body {
-                height: 100vh;
+                height: 100%;
+                border: 1px solid red;
             }
+
+            body {
+                font-family: Arial, Helvetica, sans-serif;
+
+                display: flex;
+                flex-direction: column;
+            }
+
+            .container {
+                max-width: 900px;
+                /* border: 1px solid red; */
+                margin: 0 auto;
+            }
+
+            section {
+                margin-top: 30px;
+                height: 60%;
+
+                /* border: 1px solid yellow; */
+            }
+            section .container {
+                height: 100%;
+            }
+
             .paste-container {
-                height: 70%;
-
-                border-radius: 5px;
-
-                color: rgb(67, 67, 67);
-
-                background-color: #f1f1f1a4;
-
-                /* border: 1px solid rgb(85, 86, 87); */
+                display: flex;
+                height: 100%;
             }
+
             textarea {
-                height: 100% !important;
                 width: 100%;
-                border-radius: 5px;
+                height: 100%;
+
+                resize: none;
+                outline: none;
+                border: 2px solid rgba(80, 80, 81, 0.753);
+                border-radius: 8px;
+
+                padding-inline: 15px;
+                padding-block: 25px;
+
+                font-size: 1rem;
 
                 background-color: #f1f1f1a4;
 
@@ -48,56 +78,110 @@
                 border-top-right-radius: 0;
                 border-bottom-right-radius: 0;
 
+                padding-top: 10px;
+
                 text-align: center;
             }
-            .side-buttons {
+            .side-buttons img {
+                width: 20px;
+            }
+
+            .copy {
+                background: none;
+                position: relative;
+                padding: 0;
+                margin-bottom: 15px;
+                border: none;
+            }
+            .copy:active {
+                transform: translate(2px, 2px);
+            }
+            /* .edit {
                 font-size: 20px !important;
             }
             .edit {
                 color: rgb(9, 221, 72);
-            }
+            } */
             .side-btn {
                 cursor: pointer;
             }
-            a {
-                text-decoration: none;
+
+            .info {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                top: -25px;
+
+                background-color: rgba(17, 17, 17, 0.685);
+                color: white;
+                border-radius: 4px;
+
+                font-size: 12px;
+                padding: 2px 4px;
+                opacity: 0;
+
+                transition: 0.3s ease-in-out;
             }
-            .heart {
-                color: #e25555;
+            .expires-in {
+                margin-top: 10px;
             }
-            .author {
-                font-size: 14px;
+
+            footer {
+                margin-top: auto;
+                font-family: monospace;
+
+                font-size: 1rem;
+                color: rgb(255, 253, 253);
+                padding: 6px;
+                text-align: center;
+                background-color: rgb(41, 41, 41);
+
+                border: 1px solid green;
+            }
+
+            footer a {
+                color: rgb(255, 253, 253);
+            }
+
+            @media screen and (max-width: 900px) {
+                .container {
+                    margin-inline: 10px;
+                }
             }
         </style>
     </head>
     <body class="d-flex flex-column min-vh-100">
-        <%- include('partials/nav') %>
+        <!-- --------------- -->
 
-        <div class="paste-container m-3 d-flex">
-            <div class="side-buttons">
-                <span class="copy side-btn">&#10063;</span>
-                <a href="/edit/<%= Text.address %>" class="edit side-btn"
-                    >&#9998;</a
-                >
+        <%- include('partials/nav.ejs') %>
+        <section>
+            <div class="container">
+                <div class="paste-container">
+                    <div class="side-buttons">
+                        <button class="copy side-btn">
+                            <img src="/assets/copy-regular.svg" alt="" />
+                            <span class="info">Copied</span>
+                        </button>
+                        <a href="/edit/<%= Text.address %>" class="edit side-btn"><img
+                                src="/assets/pen-to-square-regular.svg"
+                                alt=""
+                        /></a>
+                    </div>
+                    <textarea name="text" id="" disabled><%= Text.text %></textarea>
+                </div>
+
+                <div class="expires-in mx-3">
+                    Text expires at:
+                    <span class="timer"
+                        ><%= Text.expiresAt.getUTCHours() %>:<%=
+                        Text.expiresAt.getUTCMinutes() %>
+                    </span>
+                </div>
             </div>
-            <textarea class="paste-text p-3" disabled>
-<%= Text.text %></textarea
-            >
-        </div>
-        <div class="expires-in mx-3">
-            Text expires at:
-            <span class="timer"
-                ><%= Text.expiresAt.getUTCHours() %>:<%=
-                Text.expiresAt.getUTCMinutes() %>
-            </span>
-        </div>
+        </section>
 
-        <!-- Footer -->
-        <footer class="bg-dark text-center text-white mt-auto">
-            <div
-                class="text-center p-2 author"
-                style="background-color: rgba(100, 100, 100, 0.2)"
-            >
+        <footer class="">
+            <div>
                 Made with <span style="color: #e25555">❤</span> by
                 <a
                     class="text-white"
@@ -107,8 +191,6 @@
                 >
             </div>
         </footer>
-        <!-- Footer -->
-
         <script>
             function copyTextToClipboard() {
                 const textarea = document.querySelector("textarea");
@@ -134,17 +216,18 @@
                 if (status) {
                     textarea.disabled = true;
                 }
+
+                const info = document.querySelector(".info");
+                info.style.opacity = "1";
+
+                setTimeout(() => {
+                    info.style.opacity = "0";
+                }, 1200);
             }
 
             document
                 .querySelector(".copy")
                 .addEventListener("click", copyTextToClipboard);
         </script>
-
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-            crossorigin="anonymous"
-        ></script>
     </body>
 </html>
