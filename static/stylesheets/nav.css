@@ -1,0 +1,21 @@
+nav {
+    background-color: rgba(202, 197, 197, 0.372);
+    padding-block: 15px;
+
+    font-size: 1.3rem;
+}
+nav .container {
+    display: flex;
+    align-items: center;
+
+    gap: 30px;
+}
+
+nav .add {
+    width: 22px;
+    padding: 3px;
+
+    vertical-align: middle;
+
+    border: 1px solid rgb(0, 0, 0);
+}
