@@ -25,65 +25,105 @@ app.use(express.static(path.join(__dirname, "static")));
 
 PORT = 3000;
 
+class ExpressError extends Error {
+    constructor(message, status) {
+        super();
+        this.status = status;
+        this.message = message;
+        this.byuser = true;
+    }
+}
+
 app.get("/", async (req, res) => {
     res.render("home");
 });
 
-app.post("/", async (req, res) => {
-    const { text } = req.body;
-    const Text = new Paste({ text });
+app.post("/", async (req, res, next) => {
+    try {
+        console.log(req.body);
+        const { text } = req.body;
+        if (!text) {
+            throw new ExpressError("Invalid text input", 400);
+        }
+        let expireDuration = parseInt(req.body.expireDuration);
+        const Text = new Paste({ text, expireDuration });
 
-    await Text.save();
+        await Text.save();
 
-    res.redirect(`/view/${Text.address}`);
+        res.redirect(`/view/${Text.address}`);
+    } catch (e) {
+        next(e);
+    }
 });
 
-app.get("/view/:id", async (req, res) => {
-    const { id } = req.params;
+app.get("/view/:id", async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const Text = await Paste.findOne({ address: id });
 
-    const Text = await Paste.findOne({ address: id });
-    console.log(Text);
+        if (!Text) {
+            throw new ExpressError("Cannot find the paste link", 404);
+        }
 
-    if (!Text) {
-        console.log("Cannot find paste link");
-        return res.send("Error");
+        const isAlive = await Text.alive();
+        if (isAlive) {
+            return res.render("view", { Text });
+        }
+
+        return res.send("Expired");
+    } catch (e) {
+        next(e);
     }
-
-    const isAlive = await Text.alive();
-    if (isAlive) {
-        return res.render("view", { Text });
-    }
-
-    return res.send("Expired");
 });
 
-app.get("/edit/:id", async (req, res) => {
-    const { id } = req.params;
+app.get("/edit/:id", async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const Text = await Paste.findOne({ address: id });
 
-    const Text = await Paste.findOne({ address: id });
+        if (!Text) {
+            throw new ExpressError("Cannot find the paste link", 404);
+        }
 
-    if (!Text) {
-        console.log("Cannot find paste link");
-        return res.send("Error Editing");
+        const isAlive = await Text.alive();
+        if (isAlive) {
+            return res.render("edit", { Text });
+        }
+        return res.send("Expired");
+    } catch (e) {
+        next(e);
     }
-
-    const isAlive = await Text.alive();
-    if (isAlive) {
-        return res.render("edit", { Text });
-    }
-
-    return res.send("Expired");
 });
 
-app.patch("/edit/:id", async (req, res) => {
-    const { id } = req.params;
+app.patch("/edit/:id", async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const { text } = req.body;
 
-    const { text } = req.body;
+        const Text = await Paste.findOne({ address: id });
+        if (!Text) {
+            throw new ExpressError("Cannot find the paste link", 404);
+        }
+        await Paste.updateOne({ address: id }, { text });
 
-    const Text = await Paste.findOneAndUpdate({ address: id }, { text });
-    console.log(Text);
+        res.redirect(`/view/${id}`);
+    } catch (e) {
+        next(e);
+    }
+});
 
-    res.redirect(`/view/${id}`);
+app.get("*", (req, res) => {
+    throw new ExpressError("Page not found", 404);
+});
+
+app.use((err, req, res, next) => {
+    console.log(err.message);
+    if (err.byuser) {
+        return res.status(err.status).render("error", { err });
+    }
+    err.status = 500;
+    err.message = "Something went wrong.";
+    res.status(err.status).render("error", { err });
 });
 
 app.listen(3000, () =>

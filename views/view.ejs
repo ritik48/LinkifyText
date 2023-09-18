@@ -162,20 +162,22 @@
                             <img src="/assets/copy-regular.svg" alt="" />
                             <span class="info">Copied</span>
                         </button>
-                        <a href="/edit/<%= Text.address %>" class="edit side-btn"><img
+                        <a
+                            href="/edit/<%= Text.address %>"
+                            class="edit side-btn"
+                            ><img
                                 src="/assets/pen-to-square-regular.svg"
                                 alt=""
                         /></a>
                     </div>
-                    <textarea name="text" id="" disabled><%= Text.text %></textarea>
+                    <textarea name="text" id="" disabled>
+<%= Text.text %></textarea
+                    >
                 </div>
 
                 <div class="expires-in mx-3">
-                    Text expires at:
-                    <span class="timer"
-                        ><%= Text.expiresAt.getUTCHours() %>:<%=
-                        Text.expiresAt.getUTCMinutes() %>
-                    </span>
+                    Link expires at:
+                    <span class="timer"> <%= Text.expiresAt %> mins </span>
                 </div>
             </div>
         </section>

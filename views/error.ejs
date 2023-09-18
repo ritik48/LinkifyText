@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Error</title>
+
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body {
+                font-family: monospace;
+                font-size: 1rem;
+                display: flex;
+                justify-content: center;
+                /* align-items: center; */
+                background-color: rgb(35, 35, 35);
+            }
+            .container {
+                /* border: 1px solid red; */
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+                color: rgb(211, 211, 211);
+
+                margin-top: 80px;
+            }
+            h2 {
+                font-size: 6em;
+            }
+            h3 {
+                font-size: 2em;
+                text-align: center;
+            }
+            a {
+                text-decoration: none;
+
+                color: aqua;
+
+                font-size: 1.5em;
+
+                border: 1px solid rgb(145, 145, 145);
+                padding: 0.4em 0.75em;
+
+                margin-top: 20px;
+                transition: 0.15s ease-in-out;
+            }
+            a:hover {
+                background-color: rgb(12, 12, 12);
+            }
+
+            @media screen and (max-width: 400px) {
+                h3 {
+                    font-size: 1.5em;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h2><%= err.status %></h2>
+            <h3><%= err.message %></h3>
+            <a href="/">LinkifyText</a>
+        </div>
+    </body>
+</html>

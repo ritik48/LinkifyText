@@ -32,7 +32,7 @@
 
             section {
                 margin-top: 30px;
-                height: 60%;
+                height: 65%;
             }
             section .container {
                 height: 100%;
@@ -97,6 +97,7 @@
 
                 background-color: rgba(0, 0, 0, 0.139);
                 cursor: pointer;
+                margin-top: 10px;
             }
 
             .btn:active {
@@ -108,19 +109,26 @@
                 vertical-align: middle;
             }
 
+            .exp-time {
+                font-size: 1rem;
+            }
+
             footer {
                 margin-top: auto;
                 font-family: monospace;
 
-                font-size: 1rem;
+                font-size: 0.9rem;
                 color: rgb(255, 253, 253);
-                padding: 6px;
+                padding: 8px;
                 text-align: center;
                 background-color: rgb(41, 41, 41);
             }
 
             footer a {
                 color: rgb(255, 253, 253);
+            }
+            .exp-cont {
+                margin-top: 10px;
             }
 
             @media screen and (max-width: 900px) {
@@ -138,7 +146,7 @@
                     <textarea name="text" id="" placeholder=""></textarea>
                     <div class="exp-cont">
                         <label for="expiry">Expire Text : </label>
-                        <select name="exp-time" id="expiry">
+                        <select name="expireDuration" id="expiry" class="exp-time">
                             <option value="5">5 mins</option>
                             <option value="15">15 mins</option>
                             <option value="30">30 mins</option>

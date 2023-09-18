@@ -1,6 +1,8 @@
 nav {
-    background-color: rgba(202, 197, 197, 0.372);
+    background-color: rgb(36, 36, 36);
     padding-block: 15px;
+
+    color: white;
 
     font-size: 1.3rem;
 }
@@ -16,6 +18,11 @@ nav .add {
     padding: 3px;
 
     vertical-align: middle;
+    box-shadow: 0 0 2px white;
 
-    border: 1px solid rgb(0, 0, 0);
+    transition: 0.1s ease-in-out;
+}
+
+nav .add:hover {
+    box-shadow: 0 0 4px rgb(255, 255, 255);
 }

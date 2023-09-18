@@ -97,6 +97,8 @@
 
                 background-color: rgba(0, 0, 0, 0.139);
                 cursor: pointer;
+
+                margin-top: 10px;
             }
 
             .edit-btn img {
@@ -116,6 +118,10 @@
             form img {
                 width: 20px;
                 vertical-align: middle;
+            }
+
+            .expires-in {
+                margin-top: 10px;
             }
 
             footer {
@@ -144,15 +150,17 @@
         <%- include('partials/nav.ejs') %>
         <section>
             <div class="container">
-                <form action="/" method="POST">
-                    <textarea name="text" id="" placeholder=""><%= Text.text %></textarea>
+                <form
+                    action="/edit/<%= Text.address %>?_method=PATCH"
+                    method="POST"
+                >
+                    <textarea name="text" id="" placeholder="">
+<%= Text.text %></textarea
+                    >
 
                     <div class="expires-in mx-3">
-                        Text expires at:
-                        <span class="timer"
-                            ><%= Text.expiresAt.getUTCHours() %>:<%=
-                            Text.expiresAt.getUTCMinutes() %>
-                        </span>
+                        Link expires at:
+                        <span class="timer"><%= Text.expiresAt %> mins</span>
                     </div>
 
                     <button type="submit" class="btn edit-btn">
@@ -160,7 +168,9 @@
                         <img src="/assets/pen-to-square-regular.svg" alt="" />
                     </button>
 
-                    <span class="textarea-label active">Edit the text here</span>
+                    <span class="textarea-label active"
+                        >Edit the text here</span
+                    >
                 </form>
             </div>
         </section>

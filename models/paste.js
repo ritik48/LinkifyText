@@ -2,21 +2,16 @@ const mongoose = require("mongoose");
 const generateUniqueId = require("generate-unique-id");
 
 const paste_schema = new mongoose.Schema({
-    text: String,
+    text: {
+        type: String,
+        required: true,
+    },
     address: String,
+    expireDuration: Number,
     createdAt: {
         type: Date,
         default: () => {
             const now = new Date();
-            now.setHours(now.getHours() + 5);
-            now.setMinutes(now.getMinutes() + 30);
-            return now;
-        },
-    },
-    expiresAt: {
-        type: Date,
-        default: () => {
-            const now = new Date(Date.now() + 20 * 60 * 1000);
             now.setHours(now.getHours() + 5);
             now.setMinutes(now.getMinutes() + 30);
             return now;
@@ -38,7 +33,10 @@ paste_schema.pre("save", function (next) {
 
 // instance method to check if document has expired
 paste_schema.methods.alive = async function () {
-    const expiresAt = this.expiresAt;
+    const createdAt = new Date(this.createdAt);
+    expiresAt = createdAt.setSeconds(
+        createdAt.getSeconds() + this.expireDuration * 60
+    );
 
     // converting current time to indian time we have to
     // offset it by 5:30 => 19800000 ms
@@ -50,6 +48,15 @@ paste_schema.methods.alive = async function () {
     }
     return true;
 };
+
+// virtual property 'expireAt'
+paste_schema.virtual("expiresAt").get(function () {
+    let expiresAt = new Date(this.createdAt);
+    expiresAt.setSeconds(
+        expiresAt.getSeconds() + this.expireDuration * 60
+    );
+    return `${expiresAt.getUTCHours()}:${expiresAt.getUTCMinutes()}`;
+});
 
 const Paste = mongoose.model("Paste", paste_schema);
 
