@@ -7,6 +7,20 @@
         <link rel="stylesheet" href="/stylesheets/nav.css" />
 
         <style>
+            :root {
+                --primary-color: #000000;
+                --secondary-color: rgb(255, 255, 255);
+                --accent-color: rgba(230, 228, 228, 0.671);
+                --side-icon-size: 20px;
+            }
+            .dark-mode {
+                --primary-color: white;
+                --secondary-color: rgb(36, 36, 36);
+                --accent-color: rgb(71, 71, 71);
+
+                --side-icon-size: 22px;
+            }
+
             * {
                 margin: 0;
                 padding: 0;
@@ -16,10 +30,11 @@
             html,
             body {
                 height: 100%;
-                border: 1px solid red;
+                background-color: var(--accent-color);
             }
 
             body {
+                color: var(--primary-color);
                 font-family: Arial, Helvetica, sans-serif;
 
                 display: flex;
@@ -52,7 +67,6 @@
                 height: 100%;
 
                 resize: none;
-                outline: none;
                 border: 2px solid rgba(80, 80, 81, 0.753);
                 border-radius: 8px;
 
@@ -61,29 +75,34 @@
 
                 font-size: 1rem;
 
-                background-color: #f1f1f1a4;
+                background-color: var(--secondary-color);
+                color: var(--primary-color);
 
-                border-color: #bbbbbba4;
+                /* border-color: #bbbbbba4; */
 
                 border-top-left-radius: 0;
                 border-bottom-left-radius: 0;
             }
 
             .side-buttons {
-                border: 1px solid #bbbbbba4;
+                /* border: 1px solid #bbbbbba4; */
                 border-right: none;
-                border-color: #bbbbbba4;
+                border: 2px solid rgba(80, 80, 81, 0.753);
+                /* border-color: #bbbbbba4; */
                 border-radius: 5px;
 
                 border-top-right-radius: 0;
                 border-bottom-right-radius: 0;
 
+                border-right: none;
                 padding-top: 10px;
+
+                background-color: var(--secondary-color);
 
                 text-align: center;
             }
             .side-buttons img {
-                width: 20px;
+                width: var(--side-icon-size);
             }
 
             .copy {
@@ -159,15 +178,13 @@
                 <div class="paste-container">
                     <div class="side-buttons">
                         <button class="copy side-btn">
-                            <img src="/assets/copy-regular.svg" alt="" />
+                            <img src="/assets/copy_dark_mode.svg" alt="" />
                             <span class="info">Copied</span>
                         </button>
                         <a
                             href="/edit/<%= Text.address %>"
                             class="edit side-btn"
-                            ><img
-                                src="/assets/pen-to-square-regular.svg"
-                                alt=""
+                            ><img src="/assets/edit_dark_mode.svg" alt=""
                         /></a>
                     </div>
                     <textarea name="text" id="" disabled>
@@ -194,6 +211,9 @@
             </div>
         </footer>
         <script>
+
+
+            // code for copying
             function copyTextToClipboard() {
                 const textarea = document.querySelector("textarea");
                 const status = textarea.disabled;
@@ -231,5 +251,6 @@
                 .querySelector(".copy")
                 .addEventListener("click", copyTextToClipboard);
         </script>
+        <script src="/javascripts/nav.js"></script>
     </body>
 </html>

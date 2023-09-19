@@ -6,6 +6,17 @@
         <title>LinkifyText</title>
         <link rel="stylesheet" href="/stylesheets/nav.css" />
         <style>
+            :root {
+                --primary-color: #000000;
+                --secondary-color: rgb(255, 255, 255);
+                --accent-color: rgba(203, 202, 202, 0.671);
+            }
+            .dark-mode {
+                --primary-color: white;
+                --secondary-color: rgb(36, 36, 36);
+                --accent-color: rgb(71, 71, 71);
+            }
+
             * {
                 margin: 0;
                 padding: 0;
@@ -15,10 +26,11 @@
             html,
             body {
                 height: 100%;
+                background-color: var(--accent-color);
             }
 
             body {
-                /* height: 100vh; */
+                color: var(--primary-color);
                 font-family: Arial, Helvetica, sans-serif;
 
                 display: flex;
@@ -26,7 +38,6 @@
             }
             .container {
                 max-width: 900px;
-                /* border: 1px solid red; */
                 margin: 0 auto;
             }
 
@@ -55,7 +66,7 @@
 
                 font-size: 0.9rem;
                 padding-inline: 15px;
-                color: rgb(57, 55, 55);
+                color: rgb(122, 121, 121);
                 transition: 0.2s ease-in-out;
             }
 
@@ -78,8 +89,9 @@
 
                 padding-inline: 15px;
                 padding-block: 25px;
-
+                background-color: var(--secondary-color);
                 font-size: 1rem;
+                color: var(--primary-color);
             }
 
             textarea:focus {
@@ -90,12 +102,12 @@
                 font-size: 1rem;
                 padding: 0.3em 0.5em;
 
-                color: rgb(0, 0, 0);
+                color: var(--primary-color);
 
                 border: 0.7px solid black;
                 border-radius: 2px;
 
-                background-color: rgba(0, 0, 0, 0.139);
+                background-color: var(--secondary-color);
                 cursor: pointer;
                 margin-top: 10px;
             }
@@ -110,7 +122,13 @@
             }
 
             .exp-time {
-                font-size: 1rem;
+                background-color: var(--secondary-color);
+                border-radius: 6px;
+                color: var(--primary-color);
+                font-size: 1.02rem;
+                padding: 0.15em 0.2em;
+
+                cursor: pointer;
             }
 
             footer {
@@ -143,21 +161,25 @@
         <section>
             <div class="container">
                 <form action="/" method="POST">
-                    <textarea name="text" id="" placeholder=""></textarea>
+                    <textarea
+                        name="text"
+                        id=""
+                        placeholder=""
+                        autofocus
+                    ></textarea>
                     <div class="exp-cont">
                         <label for="expiry">Expire Text : </label>
-                        <select name="expireDuration" id="expiry" class="exp-time">
+                        <select
+                            name="expireDuration"
+                            id="expiry"
+                            class="exp-time"
+                        >
                             <option value="5">5 mins</option>
                             <option value="15">15 mins</option>
                             <option value="30">30 mins</option>
-                            <option value="60">30 mins</option>
+                            <option value="60">60 mins</option>
                         </select>
                     </div>
-                    <!-- <button type="submit" class="btn">
-                        Create Link
-                        <img src="./static/assets/file.png" alt="" />
-                    </button> -->
-
                     <button type="submit" class="btn">Create Link</button>
 
                     <span class="textarea-label">Paste the text here</span>
@@ -191,5 +213,6 @@
                 }
             });
         </script>
+        <script src="/javascripts/nav.js"></script>
     </body>
 </html>

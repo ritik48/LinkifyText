@@ -10,7 +10,17 @@ nav .container {
     display: flex;
     align-items: center;
 
+    justify-content: space-between;
+
     gap: 30px;
+}
+
+.left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 20px;
 }
 
 nav .add {
@@ -25,4 +35,34 @@ nav .add {
 
 nav .add:hover {
     box-shadow: 0 0 4px rgb(255, 255, 255);
+}
+
+.mode {
+    border: 1px solid rgb(148, 147, 147);
+    width: 44px;
+    height: 24px;
+    background-color: var(--mode-color);
+    border-radius: 10%;
+
+    position: relative;
+    transition: 0.35s ease-in-out;
+}
+
+.square {
+    position: absolute;
+    background-color: rgb(255, 230, 69);
+
+    width: 18px;
+    height: 16px;
+
+    left: 2px;
+    top: 2px;
+
+    border-radius: 10%;
+
+    transition: 0.35s ease-in-out;
+}
+
+.mode:hover {
+    cursor: pointer;
 }
