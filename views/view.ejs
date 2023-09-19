@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Pate It</title>
         <link rel="stylesheet" href="/stylesheets/nav.css" />
+        <link rel="stylesheet" href="/stylesheets/footer.css" />
 
         <style>
             :root {
@@ -145,23 +146,6 @@
                 margin-top: 10px;
             }
 
-            footer {
-                margin-top: auto;
-                font-family: monospace;
-
-                font-size: 1rem;
-                color: rgb(255, 253, 253);
-                padding: 6px;
-                text-align: center;
-                background-color: rgb(41, 41, 41);
-
-                border: 1px solid green;
-            }
-
-            footer a {
-                color: rgb(255, 253, 253);
-            }
-
             @media screen and (max-width: 900px) {
                 .container {
                     margin-inline: 10px;
@@ -199,17 +183,8 @@
             </div>
         </section>
 
-        <footer class="">
-            <div>
-                Made with <span style="color: #e25555">❤</span> by
-                <a
-                    class="text-white"
-                    href="https://github.com/ritik48"
-                    target="_blank"
-                    >Ritik</a
-                >
-            </div>
-        </footer>
+        <%- include('partials/footer') %>
+
         <script>
 
 

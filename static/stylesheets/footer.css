@@ -1,0 +1,14 @@
+footer {
+    margin-top: auto;
+    font-family: monospace;
+
+    font-size: 0.8rem;
+    color: rgb(145, 143, 143);
+    padding: 8px;
+    text-align: center;
+    background-color: rgb(41, 41, 41);
+}
+
+footer a {
+    color: rgb(255, 253, 253);
+}

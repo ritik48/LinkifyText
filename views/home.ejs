@@ -5,16 +5,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>LinkifyText</title>
         <link rel="stylesheet" href="/stylesheets/nav.css" />
+        <link rel="stylesheet" href="/stylesheets/footer.css" />
         <style>
             :root {
                 --primary-color: #000000;
                 --secondary-color: rgb(255, 255, 255);
-                --accent-color: rgba(203, 202, 202, 0.671);
+                --accent-color: rgba(232, 231, 231, 0.671);
+
+                --body-bg: linear-gradient(to right, #ffefba, #ffffff);
             }
             .dark-mode {
                 --primary-color: white;
                 --secondary-color: rgb(36, 36, 36);
                 --accent-color: rgb(71, 71, 71);
+
+                --body-bg: linear-gradient(to right, #434343 0%, black 100%);
             }
 
             * {
@@ -27,6 +32,7 @@
             body {
                 height: 100%;
                 background-color: var(--accent-color);
+                /* background-image: var(--body-bg); */
             }
 
             body {
@@ -131,20 +137,6 @@
                 cursor: pointer;
             }
 
-            footer {
-                margin-top: auto;
-                font-family: monospace;
-
-                font-size: 0.9rem;
-                color: rgb(255, 253, 253);
-                padding: 8px;
-                text-align: center;
-                background-color: rgb(41, 41, 41);
-            }
-
-            footer a {
-                color: rgb(255, 253, 253);
-            }
             .exp-cont {
                 margin-top: 10px;
             }
@@ -187,17 +179,7 @@
             </div>
         </section>
 
-        <footer class="bg-dark text-center text-white mt-auto">
-            <div>
-                Made with <span style="color: #e25555">❤</span> by
-                <a
-                    class="text-white"
-                    href="https://github.com/ritik48"
-                    target="_blank"
-                    >Ritik</a
-                >
-            </div>
-        </footer>
+        <%- include('partials/footer') %>
 
         <script>
             const textarea = document.querySelector("textarea");

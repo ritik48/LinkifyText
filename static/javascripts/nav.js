@@ -46,8 +46,14 @@ const disableDarkMode = () => {
 if (darkmode === "enabled") {
     square.style.left = "20px";
     enableDarkMode();
+} else {
+    if (current_path.includes("view")) {
+        copy_img.src = "/assets/copy_light_mode.svg";
+        edit_img.src = "/assets/edit_light_mode.svg";
+    }
 }
-+mode.addEventListener("click", (e) => {
+
+mode.addEventListener("click", (e) => {
     e.stopPropagation();
     darkmode = localStorage.getItem("darkmode");
     if (darkmode !== "enabled") {
