@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
@@ -7,14 +8,28 @@ const Paste = require("./models/paste");
 
 const app = express();
 
-mongoose
-    .connect("mongodb://127.0.0.1:27017/paste-service")
-    .then((data) => {
-        console.log("CONNECTION ESTABLISHED.");
-    })
-    .catch((err) => {
-        console.log("Error while connecting !!!");
-    });
+const PORT = process.env.PORT || 3000;
+const MONGO_URI =
+    process.env.MONGO_URI || "mongodb://127.0.0.1:27017/paste-service";
+
+const connectDB = async () => {
+    try {
+        const conn = await mongoose.connect(MONGO_URI);
+        console.log(`MongoDB connected : ${conn.connection.host}`);
+    } catch (error) {
+        console.log(error);
+        process.exit(1);
+    }
+};
+
+// mongoose
+//     .connect("mongodb://127.0.0.1:27017/paste-service")
+//     .then((data) => {
+//         console.log("CONNECTION ESTABLISHED.");
+//     })
+//     .catch((err) => {
+//         console.log("Error while connecting !!!");
+//     });
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -22,8 +37,6 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "static")));
-
-PORT = 3000;
 
 class ExpressError extends Error {
     constructor(message, status) {
@@ -70,7 +83,7 @@ app.get("/view/:id", async (req, res, next) => {
             return res.render("view", { Text });
         }
 
-        return res.send("Expired");
+        throw new ExpressError("Link Expired or don't exists", 404);
     } catch (e) {
         next(e);
     }
@@ -126,6 +139,8 @@ app.use((err, req, res, next) => {
     res.status(err.status).render("error", { err });
 });
 
-app.listen(3000, () =>
-    console.log(`LISTENING ON PORT 3000\nhttp://localhost:${3000}`)
-);
+connectDB().then(() => {
+    app.listen(3000, () =>
+        console.log(`LISTENING ON PORT 3000\nhttp://localhost:${PORT}`)
+    );
+});
