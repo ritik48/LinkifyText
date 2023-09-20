@@ -22,15 +22,6 @@ const connectDB = async () => {
     }
 };
 
-// mongoose
-//     .connect("mongodb://127.0.0.1:27017/paste-service")
-//     .then((data) => {
-//         console.log("CONNECTION ESTABLISHED.");
-//     })
-//     .catch((err) => {
-//         console.log("Error while connecting !!!");
-//     });
-
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
