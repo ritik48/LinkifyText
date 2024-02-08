@@ -130,8 +130,13 @@ app.use((err, req, res, next) => {
     res.status(err.status).render("error", { err });
 });
 
-connectDB().then(() => {
-    app.listen(3000, () =>
-        console.log(`LISTENING ON PORT 3000\nhttp://localhost:${PORT}`)
-    );
-});
+connectDB()
+    .then(() => {
+        app.listen(3000, () =>
+            console.log(`LISTENING ON PORT 3000\nhttp://localhost:${PORT}`)
+        );
+    })
+    .catch((err) => {
+        console.log("This part got hit.\n");
+        console.log(err);
+    });
