@@ -23,7 +23,6 @@ paste_schema.pre("save", function (next) {
     if (!this.address) {
         const pasteAddres = generateUniqueId({
             length: 6,
-            useLetters: true,
         });
         this.address = pasteAddres;
         console.log(this.address);
