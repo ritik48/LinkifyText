@@ -44,6 +44,9 @@ paste_schema.pre("save", async function (next) {
 
 // instance method to check if document has expired
 paste_schema.methods.alive = async function () {
+    if (this.expireDuration === 0) {
+        return true;
+    }
     const createdAt = new Date(this.createdAt);
     expiresAt = createdAt.setSeconds(
         createdAt.getSeconds() + this.expireDuration * 60
@@ -62,6 +65,9 @@ paste_schema.methods.alive = async function () {
 
 // virtual property 'expireAt'
 paste_schema.virtual("expiresAt").get(function () {
+    if (this.expireDuration === 0) {
+        return "Never"
+    }
     let expiresAt = new Date(this.createdAt);
     expiresAt.setSeconds(expiresAt.getSeconds() + this.expireDuration * 60);
     return `${expiresAt.getUTCHours()}:${expiresAt.getUTCMinutes()}`;

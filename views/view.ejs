@@ -146,6 +146,12 @@
                 margin-top: 10px;
             }
 
+            .msg {
+                color: rgb(197, 193, 193);
+                margin-top: 15px;
+                text-align: center;
+            }
+
             @media screen and (max-width: 900px) {
                 .container {
                     margin-inline: 10px;
@@ -178,8 +184,12 @@
 
                 <div class="expires-in mx-3">
                     Link expires at:
-                    <span class="timer"> <%= Text.expiresAt %> mins </span>
+                    <span class="timer"> <%= Text.expiresAt %></span>
                 </div>
+                <p class="msg">
+                    🔥 To access this content, enter <%= Text.address %> on the
+                    home page and click view 🔥
+                </p>
             </div>
         </section>
 
