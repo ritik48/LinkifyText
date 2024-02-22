@@ -4,7 +4,10 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Linkify Text - Generate Shareable Links from Text</title>
-        <meta name="description" content="Easily generate shareable links for any text with Linkify Text. Simply paste your text, and instantly create a link to share with others. It's quick, convenient, and hassle-free. Try it now!">
+        <meta
+            name="description"
+            content="Easily generate shareable links for any text with Linkify Text. Simply paste your text, and instantly create a link to share with others. It's quick, convenient, and hassle-free. Try it now!"
+        />
 
         <link rel="stylesheet" href="/stylesheets/nav.css" />
         <link rel="stylesheet" href="/stylesheets/footer.css" />
@@ -47,6 +50,42 @@
             .container {
                 max-width: 900px;
                 margin: 0 auto;
+
+                display: flex;
+                flex-direction: column;
+
+                gap: 20px;
+            }
+
+            .nav {
+                flex-direction: row;
+            }
+
+            .view-paste {
+                display: flex;
+                flex-direction: row;
+                align-self: flex-start;
+                align-items: center !important;
+
+                gap: 10px;
+                padding: 0;
+            }
+            .view-paste button {
+                margin: 0;
+                font-size: 1rem;
+                padding-inline: 10px;
+                padding-block: 5px;
+            }
+            .view-paste input {
+                outline: none;
+                border: 2px solid rgba(80, 80, 81, 0.753);
+                border-radius: 8px;
+
+                padding-inline: 10px;
+                padding-block: 8px;
+                background-color: var(--secondary-color);
+                font-size: 1rem;
+                color: var(--primary-color);
             }
 
             section {
@@ -59,6 +98,7 @@
 
             section form {
                 height: 100%;
+
                 position: relative;
                 display: flex;
                 flex-direction: column;
@@ -70,7 +110,7 @@
 
             .textarea-label {
                 position: absolute;
-                top: 20px;
+                top: 10px;
 
                 font-size: 0.9rem;
                 padding-inline: 15px;
@@ -105,6 +145,9 @@
             textarea:focus {
                 box-shadow: 0 0 2px 3px rgba(114, 191, 219, 0.806);
             }
+            input:focus {
+                box-shadow: 0 0 1px 2px rgba(114, 191, 219, 0.806);
+            }
 
             .btn {
                 font-size: 1rem;
@@ -118,6 +161,7 @@
                 background-color: var(--secondary-color);
                 cursor: pointer;
                 margin-top: 10px;
+                transition: 0.15s ease-in-out;
             }
 
             .btn:active {
@@ -143,6 +187,11 @@
                 margin-top: 10px;
             }
 
+            .btn:hover {
+                background-color: black;
+                color: white;
+            }
+
             @media screen and (max-width: 900px) {
                 .container {
                     margin-inline: 10px;
@@ -154,8 +203,13 @@
         <%- include('partials/nav.ejs') %>
         <section>
             <div class="container">
+                <div class="view-paste">
+                    <input placeholder="Enter paste no." name="paste_address" />
+                    <button type="submit" class="btn view">View</button>
+                </div>
                 <form action="/" method="POST">
                     <textarea
+                        class="active"
                         name="text"
                         id=""
                         placeholder=""
@@ -186,6 +240,24 @@
         <script>
             const textarea = document.querySelector("textarea");
             const textarea_label = document.querySelector(".textarea-label");
+
+            const view_btn = document.querySelector(".view-paste button");
+            const paste_id = document.querySelector("input");
+
+            view_btn.addEventListener("click", () => {
+                if (!paste_id.value) {
+                    alert("id required !!!");
+                    return;
+                }
+                const view_link = document.createElement("a");
+                view_link.setAttribute(
+                    "href",
+                    location.href + "view/" + paste_id.value
+                );
+
+                view_link.click();
+                view_link.remove();
+            });
 
             textarea.addEventListener("focus", () => {
                 textarea_label.classList.add("active");

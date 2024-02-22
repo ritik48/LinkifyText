@@ -44,7 +44,6 @@ app.get("/", async (req, res) => {
 
 app.post("/", async (req, res, next) => {
     try {
-        console.log(req.body);
         const { text } = req.body;
         if (!text) {
             throw new ExpressError("Invalid text input", 400);
