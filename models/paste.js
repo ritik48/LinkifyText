@@ -19,13 +19,25 @@ const paste_schema = new mongoose.Schema({
     },
 });
 
-paste_schema.pre("save", function (next) {
+paste_schema.pre("save", async function (next) {
     if (!this.address) {
-        const pasteAddres = generateUniqueId({
-            length: 6,
-        });
+        let pasteAddres;
+        let uniqueId = false;
+        do {
+            pasteAddres = generateUniqueId({
+                length: 6,
+                useLetters: false,
+            });
+
+            const existing = await this.constructor.findOne({
+                address: pasteAddres,
+            });
+            if (!existing) {
+                uniqueId = true;
+            }
+        } while (!uniqueId);
+
         this.address = pasteAddres;
-        console.log(this.address);
     }
     next();
 });
@@ -51,9 +63,7 @@ paste_schema.methods.alive = async function () {
 // virtual property 'expireAt'
 paste_schema.virtual("expiresAt").get(function () {
     let expiresAt = new Date(this.createdAt);
-    expiresAt.setSeconds(
-        expiresAt.getSeconds() + this.expireDuration * 60
-    );
+    expiresAt.setSeconds(expiresAt.getSeconds() + this.expireDuration * 60);
     return `${expiresAt.getUTCHours()}:${expiresAt.getUTCMinutes()}`;
 });
 
