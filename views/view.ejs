@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/assets/copy.ico" />
         <title>LinkifyText | View Paste Content</title>
         <link rel="stylesheet" href="/stylesheets/nav.css" />
         <link rel="stylesheet" href="/stylesheets/footer.css" />
@@ -13,12 +14,15 @@
                 --secondary-color: rgb(255, 255, 255);
                 --accent-color: rgba(230, 228, 228, 0.671);
                 --side-icon-size: 20px;
+
+                --light-text: rgb(42, 42, 42);
             }
             .dark-mode {
                 --primary-color: white;
                 --secondary-color: rgb(36, 36, 36);
                 --accent-color: rgb(71, 71, 71);
 
+                --light-text: rgb(197, 193, 193);
                 --side-icon-size: 22px;
             }
 
@@ -147,7 +151,7 @@
             }
 
             .msg {
-                color: rgb(197, 193, 193);
+                color: var(--light-text);
                 margin-top: 15px;
                 text-align: center;
             }

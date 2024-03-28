@@ -66,7 +66,7 @@ paste_schema.methods.alive = async function () {
 // virtual property 'expireAt'
 paste_schema.virtual("expiresAt").get(function () {
     if (this.expireDuration === 0) {
-        return "Never"
+        return "Never";
     }
     let expiresAt = new Date(this.createdAt);
     expiresAt.setSeconds(expiresAt.getSeconds() + this.expireDuration * 60);
