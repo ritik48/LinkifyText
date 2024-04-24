@@ -17,6 +17,10 @@ const paste_schema = new mongoose.Schema({
             return now;
         },
     },
+    restricted: {
+        type: Boolean,
+        default: false
+    }
 });
 
 paste_schema.pre("save", async function (next) {

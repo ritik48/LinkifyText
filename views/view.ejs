@@ -114,6 +114,7 @@
                 background: none;
                 position: relative;
                 padding: 0;
+                padding-block: 2px;
                 margin-bottom: 15px;
                 border: none;
             }
@@ -175,11 +176,13 @@
                             <img src="/assets/copy_dark_mode.svg" alt="" />
                             <span class="info">Copied</span>
                         </button>
+                        <% if(!Text.restricted) { %>
                         <a
                             href="/edit/<%= Text.address %>"
                             class="edit side-btn"
                             ><img src="/assets/edit_dark_mode.svg" alt=""
                         /></a>
+                        <% } %>
                     </div>
                     <textarea name="text" id="" disabled>
 <%= Text.text %></textarea

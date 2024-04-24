@@ -48,8 +48,9 @@ app.post("/", async (req, res, next) => {
         if (!text) {
             throw new ExpressError("Invalid text input", 400);
         }
+        const restricted = req.body.restricted ? true : false;
         let expireDuration = parseInt(req.body.expireDuration);
-        const Text = new Paste({ text, expireDuration });
+        const Text = new Paste({ text, expireDuration, restricted });
 
         await Text.save();
 
@@ -83,6 +84,10 @@ app.get("/edit/:id", async (req, res, next) => {
     try {
         const { id } = req.params;
         const Text = await Paste.findOne({ address: id });
+
+        if (!Text.restricted) {
+            return res.redirect(`/view/${id}`);
+        }
 
         if (!Text) {
             throw new ExpressError("Cannot find the paste link", 404);

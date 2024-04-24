@@ -193,6 +193,26 @@
                 color: white;
             }
 
+            .exp-rest {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 20px;
+            }
+            .restrict {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                margin-top: 10px;
+
+                gap: 10px;
+            }
+            .rest-check {
+                width: 18px;
+                height: 18px;
+            }
+
             @media screen and (max-width: 900px) {
                 .container {
                     margin-inline: 10px;
@@ -216,19 +236,29 @@
                         placeholder=""
                         autofocus
                     ></textarea>
-                    <div class="exp-cont">
-                        <label for="expiry">Expire Text : </label>
-                        <select
-                            name="expireDuration"
-                            id="expiry"
-                            class="exp-time"
-                        >
-                            <option value="5">5 mins</option>
-                            <option value="15">15 mins</option>
-                            <option value="30">30 mins</option>
-                            <option value="60">60 mins</option>
-                            <option value="0">Never</option>
-                        </select>
+                    <div class="exp-rest">
+                        <div class="exp-cont">
+                            <label for="expiry">Expire Text : </label>
+                            <select
+                                name="expireDuration"
+                                id="expiry"
+                                class="exp-time"
+                            >
+                                <option value="5">5 mins</option>
+                                <option value="15">15 mins</option>
+                                <option value="30">30 mins</option>
+                                <option value="60">60 mins</option>
+                                <option value="0">Never</option>
+                            </select>
+                        </div>
+                        <div class="restrict">
+                            <div>Allow Edit</div>
+                            <input
+                                name="restricted"
+                                class="rest-check"
+                                type="checkbox"
+                            />
+                        </div>
                     </div>
                     <button type="submit" class="btn">Create Link</button>
 
